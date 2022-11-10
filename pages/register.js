@@ -5,6 +5,8 @@ import styles from "../styles/Form.module.css"
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from "react-icons/hi"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { router } from "next/router"
+import axios from "axios"
 
 export default function Register() {
   const [show, setShow] = useState({ password: false, cpassword: false })
@@ -31,8 +33,23 @@ export default function Register() {
     if (password.length < 6) return
     if (password !== cPwdWatch) return
     console.log(username, email, password)
+    const data = { email, password }
 
-    // await
+    const config = {
+      method: "POST",
+      headers: { "Content-Type": "application-json" },
+      body: JSON.stringify(data),
+    }
+
+    await axios
+      .post("http://localhost:5000/api/auth/register", data)
+      .then((res) => {
+        console.log("rress", res)
+        if (data) router.push("/")
+      })
+      .catch((error) =>
+        console.log("error at reg", error.response.data.message)
+      )
   }
   return (
     <Layout>

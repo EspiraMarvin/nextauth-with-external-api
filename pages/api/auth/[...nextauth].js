@@ -22,7 +22,6 @@ export default NextAuth({
           email: credentials.email,
           password: credentials.password,
         }
-        console.log("payload auth", payload)
 
         const res = await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
@@ -49,9 +48,12 @@ export default NextAuth({
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
     async jwt({ access_token_temp: token }) {
-      // console.log("token, user", token)
+      console.log("token, user at callbacks", token)
       // console.log("token, user email ", token.email)
 
       // console.log(" user ", user)
