@@ -2,8 +2,8 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import GitHubProvider from "next-auth/providers/github"
 import CredentialProvider from "next-auth/providers/credentials"
+import jwtDecode from "jwt-decode"
 
-let access_token_temp = null
 export default NextAuth({
   providers: [
     // Google Provider
@@ -38,48 +38,18 @@ export default NextAuth({
         }
         // If no error and we have user data, return it
         if (res.ok && user) {
-          console.log("user", user)
-          access_token_temp = res
+          console.log("user accessToken", user.accessToken)
 
-          return res
+          const decoded = jwtDecode(user.accessToken)
+          const { email, roles } = decoded ? decoded.UserInfo : null
+          console.log("email at session", email)
+          console.log("roles at session", roles)
+
+          return { email, roles }
         } else {
           return null
         }
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
-  },
-  callbacks: {
-    async jwt({ access_token_temp: token }) {
-      console.log("token, user at callbacks", token)
-      // console.log("token, user email ", token.email)
-
-      // console.log(" user ", user)
-      // console.log("account", account)
-
-      // if (account && user) {
-      //   return {
-      //     ...token,
-      //     accessToken: user.access_token,
-      //     refreshToken: user.refresh_token,
-      //   }
-      // }
-      // console.log("THIS TOKEN", token)
-      return token
-    },
-
-    async session({ session, token }) {
-      console.log("session at async session", session)
-      console.log("token at async session", token)
-
-      session.user.access_token = access_token_temp
-
-      // session.user.access_token = access_token_temp
-      // session.user.access_token = token.jti
-
-      return session
-    },
-  },
 })

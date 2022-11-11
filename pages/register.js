@@ -59,10 +59,10 @@ export default function Register() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className="w-3/4 mx-auto flex flex-col gap-10">
+      <section className="flex flex-col w-3/4 gap-10 mx-auto">
         <div className="title">
-          <h1 className="text-gray-800 text-4xl font-bold py-4">Register</h1>
-          <p className="w-4/4 mx-auto text-gray-400 text-sm">
+          <h1 className="py-4 text-4xl font-bold text-gray-800">Register</h1>
+          <p className="mx-auto text-sm text-gray-400 w-4/4">
             To keep up to date with the latest events around you.
           </p>
         </div>
@@ -80,7 +80,7 @@ export default function Register() {
               placeholder="Username"
               {...register("username", { required: true })}
             />
-            <span className="icon flex items-center px-4">
+            <span className="flex items-center px-4 icon">
               <HiOutlineUser size={23} />
             </span>
           </div>
@@ -96,7 +96,7 @@ export default function Register() {
               placeholder="Email"
               {...register("email", { required: true })}
             />
-            <span className="icon flex items-center px-4">
+            <span className="flex items-center px-4 icon">
               <HiAtSymbol size={23} />
             </span>
           </div>

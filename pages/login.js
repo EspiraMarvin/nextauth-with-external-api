@@ -21,14 +21,12 @@ export default function Login() {
 
   // credentials
   const onSubmit = async ({ email, password }) => {
-    console.log({ email, password })
     const status = await signIn("credentials", {
       redirect: false,
       email: email,
       password: password,
       callbackUrl: "/",
     })
-    console.log("status", status)
 
     if (status.ok) {
       router.push(status.url)
@@ -50,9 +48,9 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className="w-3/4 mx-auto flex flex-col gap-10">
+      <section className="flex flex-col w-3/4 gap-10 mx-auto">
         <div className="title">
-          <h1 className="text-gray-800 text-4xl font-bold py-4">Explore</h1>
+          <h1 className="py-4 text-4xl font-bold text-gray-800">Explore</h1>
           <p className="w-3/4 mx-auto text-gray-400">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores,
             officia?
@@ -72,7 +70,7 @@ export default function Login() {
               placeholder="Email"
               {...register("email", { required: true })}
             />
-            <span className="icon flex items-center px-4">
+            <span className="flex items-center px-4 icon">
               <HiAtSymbol size={23} />
             </span>
           </div>
